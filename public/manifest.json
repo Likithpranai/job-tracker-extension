@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Job Application Tracker",
+  "version": "1.0",
+  "description": "Tracks your job applications",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": ["http://*/*", "https://*/*"]
+}
