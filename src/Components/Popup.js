@@ -74,85 +74,91 @@ const Popup = () => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded p-4 w-96 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">Job Application Tracker</h1>
-      <form onSubmit={handleSubmit} className="w-full">
-        <div className="mb-4">
-          <label
-            htmlFor="positionName"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Position Name
-          </label>
-          <input
-            type="text"
-            id="positionName"
-            value={positionName}
-            onChange={(e) => setPositionName(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="company"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Company
-          </label>
-          <input
-            type="text"
-            id="company"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="applicationLink"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Application Link
-          </label>
-          <input
-            type="text"
-            id="applicationLink"
-            value={applicationLink}
-            onChange={(e) => setApplicationLink(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="inline-flex items-center">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white shadow-lg rounded-lg p-10 w-full max-w-md h-auto sm:h-auto md:h-auto lg:h-auto xl:h-auto">
+        {" "}
+        {/* Responsive height */}
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+          Job Application Tracker
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              htmlFor="positionName"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Position Name
+            </label>
             <input
-              type="checkbox"
-              checked={applyLater}
-              onChange={(e) => setApplyLater(e.target.checked)}
-              className="form-checkbox h-5 w-5 text-gray-600"
+              type="text"
+              id="positionName"
+              value={positionName}
+              onChange={(e) => setPositionName(e.target.value)}
+              required
+              className="shadow-sm border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <span className="ml-2 text-gray-700">Apply Later</span>
-          </label>
-          <label className="inline-flex items-center ml-4">
+          </div>
+          <div>
+            <label
+              htmlFor="company"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Company
+            </label>
             <input
-              type="checkbox"
-              checked={applied}
-              onChange={(e) => setApplied(e.target.checked)}
-              className="form-checkbox h-5 w-5 text-gray-600"
+              type="text"
+              id="company"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              required
+              className="shadow-sm border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <span className="ml-2 text-gray-700">Applied</span>
-          </label>
-        </div>
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline"
-          >
-            Save
-          </button>
-        </div>
-      </form>
+          </div>
+          <div>
+            <label
+              htmlFor="applicationLink"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Application Link
+            </label>
+            <input
+              type="text"
+              id="applicationLink"
+              value={applicationLink}
+              onChange={(e) => setApplicationLink(e.target.value)}
+              className="shadow-sm border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div className="flex items-center space-x-4">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                checked={applyLater}
+                onChange={(e) => setApplyLater(e.target.checked)}
+                className="form-checkbox h-5 w-5 text-gray-600"
+              />
+              <span className="ml-2 text-gray-700">Apply Later</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                checked={applied}
+                onChange={(e) => setApplied(e.target.checked)}
+                className="form-checkbox h-5 w-5 text-gray-600"
+              />
+              <span className="ml-2 text-gray-700">Applied</span>
+            </label>
+          </div>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

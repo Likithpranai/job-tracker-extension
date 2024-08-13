@@ -105,11 +105,11 @@ const List = ({ userId }) => {
           <table className="w-full">
             <thead>
               <tr className="bg-gray-200">
-                <th className="px-4 py-2">Position</th>
-                <th className="px-4 py-2">Company</th>
-                <th className="px-4 py-2">Status</th>
-                <th className="px-4 py-2">Application Link</th>
-                <th className="px-4 py-2">Actions</th>{" "}
+                <th className="px-4 py-2 text-center">Position</th>
+                <th className="px-4 py-2 text-center">Company</th>
+                <th className="px-4 py-2 text-center">Status</th>
+                <th className="px-4 py-2 text-center">Application Link</th>
+                <th className="px-4 py-2 text-center">Actions</th>{" "}
                 {/* New Actions Column */}
               </tr>
             </thead>
@@ -123,10 +123,16 @@ const List = ({ userId }) => {
                       application.index % 2 === 0 ? "bg-gray-100" : "bg-white"
                     }`}
                   >
-                    <td className="px-4 py-2">{application.positionName}</td>
-                    <td className="px-4 py-2">{application.company}</td>
-                    <td className="px-4 py-2">{application.status}</td>
-                    <td className="px-4 py-2">
+                    <td className="px-4 py-2 text-center">
+                      {application.positionName}
+                    </td>
+                    <td className="px-4 py-2 text-center">
+                      {application.company}
+                    </td>
+                    <td className="px-4 py-2 text-center">
+                      {application.status}
+                    </td>
+                    <td className="px-4 py-2 text-center">
                       <a
                         href={application.applicationLink}
                         target="_blank"
