@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Signup from "./Components/Signup";
 import LoginPage from "./Components/Login";
-import Popup from "./Components/popup";
+import Popup from "./Components/Popup";
 import List from "./Components/List"; // Import the List component
 import { auth } from "./Firebase/firebase";
 import { signOut } from "firebase/auth";
