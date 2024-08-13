@@ -1,24 +1,42 @@
 import React, { useState } from "react";
-import { db } from "../Firebase/firebase";
-import { addDoc, collection } from "firebase/firestore";
-const Popup = () => {
-  const [user, setUser] = React.useState(null);
-  const [positionName, setPositionName] = React.useState("");
-  const [company, setCompany] = React.useState("");
-  const [applicationLink, setApplicationLink] = React.useState("");
-  const [applyLater, setApplyLater] = React.useState(false);
-  const [applied, setApplied] = React.useState(false);
+import { auth, db } from "../Firebase/firebase";
+import { addDoc, collection, query, where, getDocs } from "firebase/firestore"; // Import Firestore functions
 
+const Popup = () => {
+  const [positionName, setPositionName] = useState("");
+  const [company, setCompany] = useState("");
+  const [applicationLink, setApplicationLink] = useState("");
+  const [applyLater, setApplyLater] = useState(false);
+  const [applied, setApplied] = useState(false);
+  const user = auth.currentUser;
+
+  // Handle job application submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check for duplicates before adding the application
+    const isDuplicate = await checkForDuplicateApplication();
+    if (isDuplicate) {
+      alert("This job application already exists.");
+      return; // Prevent submission if duplicate found
+    }
+
+    // Determine the status based on the checkbox values
+    let status = "Not Applied"; // Default status
+    if (applied) {
+      status = "Applied";
+    } else if (applyLater) {
+      status = "Apply Later";
+    }
+
     try {
-      // Save the Job Application to FireStore
+      // Save the Job Application to Firestore
       await addDoc(collection(db, "JobApplications"), {
         positionName,
         company,
         applicationLink,
-        applyLater,
-        applied,
+        status, // Use the derived status
+        userId: user.uid, // Associate the application with the user
         createdAt: new Date(),
       });
 
@@ -36,10 +54,29 @@ const Popup = () => {
       alert("Error saving the job application, Please Try Again");
     }
   };
+
+  // Function to check for duplicate applications
+  const checkForDuplicateApplication = async () => {
+    try {
+      const q = query(
+        collection(db, "JobApplications"),
+        where("userId", "==", user.uid),
+        where("positionName", "==", positionName),
+        where("company", "==", company),
+        where("applicationLink", "==", applicationLink)
+      );
+      const querySnapshot = await getDocs(q);
+      return !querySnapshot.empty; // Return true if there are duplicates
+    } catch (error) {
+      console.error("Error checking for duplicates:", error);
+      return false; // Assume no duplicates if there's an error
+    }
+  };
+
   return (
-    <div className="bg-white shadow-md rounded p-4 w-96">
+    <div className="bg-white shadow-md rounded p-4 w-96 flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-4">Job Application Tracker</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="w-full">
         <div className="mb-4">
           <label
             htmlFor="positionName"
@@ -107,12 +144,14 @@ const Popup = () => {
             <span className="ml-2 text-gray-700">Applied</span>
           </label>
         </div>
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline"
-        >
-          Save
-        </button>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline"
+          >
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );
